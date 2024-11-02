@@ -1,6 +1,6 @@
 # Ways of accessing pods in clusters from the outside
 
-A cluster is isolated by default, which reduces the burden of security breaches. But there are different ways of exposing pods to the outside, which are discussed with examples down below:
+A cluster is isolated by default, which reduces the burden of security breaches. In this context we only look at k3d. There are different ways of exposing pods to the outside, which are discussed with examples down below:
 
 1. `hostNetwork` -> pods can see network interfaces on the host machine where pods were started
 2. `hostPort` -> cotainer is exposed to external network at `nodeIP:containerPort`
@@ -122,7 +122,7 @@ The NodePort service represents a static endpoint through which the selected pod
 
 #### Using `LoadBalancer` -> service level
 
-A cloud provider has to be enabled in the configuration of the Kubernetes cluster which provides built in cloud load balancers because it provides the endpoint to the cluster. In k3d in a local setup we can not test this, other than on cluster setup setting no loadbalancer with `--no-lb` and setting up or own load balancer. Otherwise per default you work with the loadbalancer of k3d: `Traefik` which does do port fowardubg for cluster and can be checked with `kubectl get services -n kube-system`. 
+A cloud provider has to be enabled in the configuration of the Kubernetes cluster which provides built in cloud load balancers because it provides the endpoint to the cluster. In k3d in a local setup we can not test this, other than on cluster setup setting no loadbalancer with `--no-lb` and setting up or own load balancer. Otherwise per default you work with the loadbalancer/ingress controller of k3d: `Traefik` which does do port fowarding for the cluster and the External-IP can be checked via `kubectl get services -n kube-system`. 
 
 An example of LoadBalancer creation with nginx pods and an Ingress rule can be found in top level folder `load-balancing`. 
 
