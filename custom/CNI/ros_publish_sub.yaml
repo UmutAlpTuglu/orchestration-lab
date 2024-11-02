@@ -1,0 +1,30 @@
+# kubectl apply -f pointcloud_pose_pub.yaml
+# kubectl delete -f pointcloud_pose_pub.yaml
+# For fast testing, a ROS publisher and subscriber
+# if ros images not imported into  k3d cluster, than they will get pulled 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-publisher-subscriber
+  labels:
+    app: minimal-publisher-subscriber
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minimal-publisher-subscriber
+  template:
+    metadata:
+      labels:
+        app: minimal-publisher-subscriber
+    spec:
+      containers:
+      - name: minimal-publisher
+        image: ros:humble-ros-base
+        command: ["/bin/bash", "-c"]
+        args: ["source /opt/ros/humble/setup.bash && apt update && apt install -y curl && curl https://raw.githubusercontent.com/canonical/robotics-blog-k8s/main/publisher.py > publisher.py && /bin/python3 publisher.py talker1"]
+
+      - name: minimal-subscriber
+        image: ros:humble-ros-base
+        command: ["/bin/bash", "-c"]
+        args: ["source /opt/ros/humble/setup.bash && apt update && apt install -y curl && curl https://raw.githubusercontent.com/canonical/robotics-blog-k8s/main/subscriber.py > subscriber.py && /bin/python3 subscriber.py listener"]
