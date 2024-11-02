@@ -1,4 +1,3 @@
-# docker build . -f dockerfile -t alphafactorstrategy
 FROM python:latest
 
 RUN pip install --upgrade pip
@@ -13,6 +12,6 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-RUN useradd -ms /bin/bash vscode
-USER vscode
+#RUN useradd -ms /bin/bash vscode
+#USER vscode
 WORKDIR /workspace

@@ -1,0 +1,19 @@
+# Base image needs to provide Stability, Security and up to date dependencies, when possible also smaller image size
+# docker build -t websocket -f microservices/websocket/dockerfile .
+# docker run -it --rm --network="dev-net" websocket
+
+FROM python:3.12-slim-bookworm
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install --no-install-recommends  -y \
+    libprotobuf-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install python requirements
+RUN pip install --no-input \
+    pandas \
+    websocket-client
+
+COPY microservices/websocket-client/*.py /code/websocket-client/
+
+CMD cd /code && python3 -m microservices.websocket

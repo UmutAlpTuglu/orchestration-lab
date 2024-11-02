@@ -1,4 +1,12 @@
 {
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        {
+            "name": "Python: websocket",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "microservices.websocket",
+            "justMyCode": true,
+        },
+    ]
 }
