@@ -1,0 +1,11 @@
+jupyter
+black
+flake8
+pep8-naming
+flake8-annotations
+mypy
+isort
+pytest
+ipykernel
+kafka-python
+websocket-client
