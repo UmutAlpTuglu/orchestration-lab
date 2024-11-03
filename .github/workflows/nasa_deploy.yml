@@ -53,6 +53,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print tag name
+        run: echo "RELEASE_VERSION=${{ needs.get_tag.outputs.release_version }}" >> $GITHUB_ENV
+
+      - name: 'Debug Print'
+        run: echo tag version is ${{ env.RELEASE_VERSION }}
+      
       - name: SSH and Docker pull
         uses:  appleboy/ssh-action@v1.0.0
         with:
