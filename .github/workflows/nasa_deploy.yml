@@ -6,7 +6,7 @@ on:
     tags:
       - '*'
 
-name: Deploy to docker hub
+name: Deploy to Docker Hub and Server
 
 env:
   APP_NAME: nasa-app
@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build image 
-        run: docker build -t ${{ env.APP_NAME }} -f nasa.Dockerfile .
+        run: docker build -t ${{ env.APP_NAME }} -f microservices/nasa/dockerfile .
       - name: Tag image
         run: docker tag ${{ env.APP_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
       - name: Push image
