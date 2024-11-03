@@ -10,14 +10,14 @@ on:
       - '.github/workflows/docker-build.yml'
 
 env:
-  IMAGE_NAME: pointcloud_detection
+  APP_NAME: pointcloud_detection
+  RELEASE_VERSION: latest
 
 jobs:
-  build-and-push:
+  build-push:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repository
+      - name: Check out the repo
         uses: actions/checkout@v4
 
       - name: Login to Docker Hub
@@ -29,14 +29,14 @@ jobs:
       - name: Build image
         run: |
           cd ws
-          docker build -t ${{ env.IMAGE_NAME }} -f pointcloud.Dockerfile .
+          docker build -t ${{ env.APP_NAME }} -f pointcloud.Dockerfile .
 
       - name: Tag image
-        run: |
-          docker tag ${{ env.IMAGE_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ env.IMAGE_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker tag ${{ env.APP_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
 
       - name: Push image
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
+
+      # debug step
+      - name: Verify image
+        run: docker images | grep ${{ env.APP_NAME }}
