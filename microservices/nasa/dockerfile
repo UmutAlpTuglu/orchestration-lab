@@ -13,7 +13,7 @@ RUN pip install --no-input \
     requests
 
 # Copy necessary scripts from host to container
-COPY nasa/*.py /code/nasa/
+COPY microservices/nasa/*.py /code/microservices/nasa/
 
 # Run th python module with environment variables set from outside the container
 CMD cd /code && python -m nasa --api_key $API_KEY 

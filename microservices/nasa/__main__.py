@@ -23,7 +23,7 @@ if __name__ == "__main__":
         "--nasa_url",
         type=str,
         help="Nasa Url to scrape image from",
-        default=os.getenv("NASA_URL") or os.environ.get("NASA_URL"),
+        default=os.getenv("NASA_URL") or os.environ.get("NASA_URL") or "https://api.nasa.gov/planetary/apod",
     )
     parser.add_argument(
         "--debug", help="Set if you want to see debug messages", action="store_true"
