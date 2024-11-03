@@ -165,3 +165,42 @@ cython_debug/
 #custom
 data
 microservices/websocket/
+
+# ROS 2 specific ignores
+ws/build/
+ws/install/
+ws/log/
+
+# Python related
+**/*.py[cod]
+**/__pycache__/
+**/*.so
+**/.Python
+**/develop-eggs/
+**/dist/
+**/downloads/
+**/eggs/
+**/.eggs/
+**/lib/
+**/lib64/
+**/parts/
+**/sdist/
+**/var/
+**/wheels/
+**/*.egg-info/
+**/.installed.cfg
+**/*.egg
+
+# Editor backups
+*~
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# ROS specific
+.ros/
+.catkin_tools/
+
