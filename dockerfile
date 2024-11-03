@@ -6,6 +6,7 @@ RUN pip install --upgrade pip
 RUN apt-get update && apt-get install --no-install-recommends  -y \
     git \
     openssh-client\
+    tree \
     && rm -rf /var/lib/apt/lists/* 
 
 COPY requirements.txt requirements.txt

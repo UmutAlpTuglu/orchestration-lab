@@ -3,7 +3,7 @@ import logging
 import os
 from dotenv import load_dotenv
 
-from .get_data import get_data
+from microservices.nasa.get_data import get_data
 
 # load password config file for local development
 if os.path.exists("./.env"):

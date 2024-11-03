@@ -1,5 +1,5 @@
 # in github set DOCKERHUB_REGISTRY, DOCKERHUB_TOKEN, DOCKERHUB_USERNAME, NASA_API, SERVER_IP, SERVER_USER, SSH_PRIVATE_KEY
-# trigger this pipeline by pushing tag to repository via git tag <tagname>, git push origin --tags
+# trigger this pipeline by pushing tag to repository via git tag <tagname>, git push origin <tagname>
 
 on:
   push:
@@ -21,13 +21,13 @@ jobs:
         id: get_tag
         run: echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-  build-push-pull:
+  build-push:
     needs: get_tag
     runs-on: ubuntu-latest
     
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Print tag name
         run: echo "RELEASE_VERSION=${{ needs.get_tag.outputs.release_version }}" >> $GITHUB_ENV
@@ -48,6 +48,11 @@ jobs:
       - name: Push image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
 
+  login-pull-deploy:
+    needs: [get_tag, build-push]
+    runs-on: ubuntu-latest
+
+    steps:
       - name: SSH and Docker pull
         uses:  appleboy/ssh-action@v1.0.0
         with:

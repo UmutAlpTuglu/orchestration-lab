@@ -1,13 +1,9 @@
 # docker build -t nasa-feedhandler -f microservices/nasa/dockerfile .
-# docker run -it --rm -e API_KEY=""
+# docker run -it --rm -e API_KEY="" -t nasa-feedhandler
 
 FROM python:3.9-slim-buster
 
-WORKDIR /app
-
-ARG API_KEY
-
-ENV API_KEY=${API_KEY}
+WORKDIR /code
 
 # Install python requirements
 RUN pip install --no-input \
@@ -15,9 +11,9 @@ RUN pip install --no-input \
     requests
 
 # Copy necessary scripts from host to container
-COPY microservices/nasa/*.py /app/nasa/
+COPY microservices/nasa/*.py /code/microservices/nasa/
 
 VOLUME ["/data"]
 
 # Run th python module with environment variables set from outside the container
-CMD ["python", "-m", "nasa"]
+CMD ["python3", "-m", "microservices.nasa"]

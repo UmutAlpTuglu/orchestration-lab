@@ -40,7 +40,7 @@ def get_data(api_key : str, url:str) -> None:
     response = requests.get(image_url, stream=True)
     if response.status_code == 200:
         
-        filename = os.path.join('data', image_url.split("/")[-1])
+        filename = os.path.join(data_dir, image_url.split("/")[-1])
 
         with open(filename, 'wb') as file:
             for chunk in response.iter_content(chunk_size=128):
