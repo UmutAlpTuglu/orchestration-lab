@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "colcon: build",
+            "type": "shell",
+            "command": "source /opt/ros/iron/setup.bash && colcon build --symlink-install",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "/home/ws"
+            }
+        },
+        {
+            "label": "colcon: build (debug)",
+            "type": "shell",
+            "command": "source /opt/ros/iron/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug",
+            "group": "build",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "/home/ws"
+            }
+        },
+        {
+            "label": "colcon: test",
+            "type": "shell",
+            "command": "source /opt/ros/iron/setup.bash && source install/setup.bash && colcon test --event-handlers console_direct+",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "/home/ws"
+            }
+        },
+        {
+            "label": "colcon: clean",
+            "type": "shell",
+            "command": "rm -rf build/ install/ log/",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "/home/ws"
+            }
+        }
+    ]
+}
