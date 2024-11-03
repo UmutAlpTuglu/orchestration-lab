@@ -31,14 +31,13 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Setup logging format and enable logging of warnings.
+    print(f"NASA_API env var: {os.getenv('NASA_API')}")
+    print(f"API_KEY env var: {os.getenv('API_KEY')}")
+    print(f"Final api_key value: {args.api_key}")
+
     fmt = "%(asctime)s %(levelname)s %(message)s"
     logging.captureWarnings(True)
-
-    # Log debug logging only if --debug is set.
-    if args.debug:
-        logging.basicConfig(level=logging.DEBUG, format=fmt)
-    else:
-        logging.basicConfig(level=logging.INFO, format=fmt)
+    
+    logging.basicConfig(level=logging.DEBUG, format=fmt)
 
     get_data(args.api_key, args.nasa_url)
