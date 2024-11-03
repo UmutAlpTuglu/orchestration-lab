@@ -7,7 +7,7 @@ on:
     paths:
       - 'ws/src/pointcloud_detection/**'
       - 'ws/pointcloud.Dockerfile'
-      - '.github/workflows/docker-build.yml'
+      - '.github/workflows/ros_build.yml'
 
 env:
   APP_NAME: pointcloud_detection
