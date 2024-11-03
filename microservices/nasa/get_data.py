@@ -1,7 +1,7 @@
 import logging
 import os
 import requests
-
+from pathlib import Path
 
 def get_data(api_key : str, url:str) -> None:
     """ Get different NASA data
@@ -32,8 +32,9 @@ def get_data(api_key : str, url:str) -> None:
     }
     logging.info(extracted_data)
 
-    # Create data directory if it doesn't exist
-    os.makedirs('data', exist_ok=True)
+    # Use a fixed mount point
+    data_dir = Path('/data')  
+    data_dir.mkdir(parents=True, exist_ok=True)
 
     image_url = extracted_data['url']
     response = requests.get(image_url, stream=True)

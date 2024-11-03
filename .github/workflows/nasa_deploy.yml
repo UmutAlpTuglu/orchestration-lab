@@ -21,7 +21,7 @@ jobs:
         id: get_tag
         run: echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-  build-test-and-push:
+  build-push-pull:
     needs: get_tag
     runs-on: ubuntu-latest
     
@@ -58,4 +58,8 @@ jobs:
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
             docker stop ${{ env.APP_NAME }} || true && docker rm ${{ env.APP_NAME }} || true
-            docker run -d -e API_KEY="${{ secrets.NASA_API }}" --name ${{ env.APP_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
+            docker run -d \
+              -e API_KEY="${{ secrets.NASA_API }}" \
+              -v /home/${{ secrets.HOME_USER }}/nasa-data:/data \
+              --name ${{ env.APP_NAME }} \
+              ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
