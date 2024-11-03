@@ -2,11 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: websocket",
+            "name": "Websocket",
             "type": "debugpy",
             "request": "launch",
             "module": "microservices.websocket",
             "justMyCode": true,
         },
+        {
+            "name": "Nasa",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "microservices.nasa",
+            "justMyCode": true
+        }
     ]
 }

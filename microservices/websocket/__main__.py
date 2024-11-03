@@ -15,12 +15,6 @@ if __name__ == "__main__":
         default="",
     )
     parser.add_argument(
-        "--kafka_server",
-        type=str,
-        help="Kafka bootstrap server adress",
-        default="kafka:9092",
-    )
-    parser.add_argument(
         "--debug", help="Set if you want to see debug messages", action="store_true"
     )
 
@@ -40,5 +34,5 @@ if __name__ == "__main__":
     # Call to main program
     logging.info(f"passed commandline arguments :{args}")
     run_feedhandler(
-        args.hostname, args.kafka_server
+        args.kafka_server
     )

@@ -24,11 +24,10 @@ def run_feedhandler(
     hostname: str,
     port: int,
 ) -> None:
-    """Connects to ... via Websockets and publishes data to Kafka in infinite loop
+    """Connects to ... via Websockets and ...
 
     Args:
         hostname (str): 
-        kafka_server (str): Adress of Kafka server, e. g. "kafka:9092"
     """
     # Create message handler
     #message_processor = MessageProcessor(kafka_server)
