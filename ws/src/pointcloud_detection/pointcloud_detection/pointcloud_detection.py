@@ -1,9 +1,11 @@
 # BUILD process, sourcing in every new terminal:
 # colcon build
 # . install/setup.bash 
-# TEST in docker dev
-# ros2 run pointcloud_detection pointcloud_detection
-# ros2 topic pub /pointcloud sensor_msgs/msg/PointCloud2 "{header: {frame_id: 'map'}, height: 1, width: 1, fields: [], is_bigendian: false, point_step: 1, row_step: 1, data: [0], is_dense: false}"
+# TEST in docker dev in three terminals and source all of them
+#1 ros2 run pointcloud_detection pointcloud_detection
+#2 ros2 topic pub /pointcloud sensor_msgs/msg/PointCloud2 "{header: {frame_id: 'map'}, height: 1, width: 1, fields: [], is_bigendian: false, point_step: 1, row_step: 1, data: [0], is_dense: false}"
+#3 ros2 topic echo /detected_objects 
+
 
 import rclpy
 from rclpy.node import Node

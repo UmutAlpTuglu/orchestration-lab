@@ -1,12 +1,13 @@
 # in github set DOCKERHUB_REGISTRY, DOCKERHUB_TOKEN, DOCKERHUB_USERNAME, NASA_API, SERVER_IP, SERVER_USER, SSH_PRIVATE_KEY
 # trigger this pipeline by pushing tag to repository via git tag <tagname>, git push origin <tagname>
+# also check which git tags are deployed and manually 
 
 on:
   push:
     tags:
       - '*'
 
-name: Deploy to Docker Hub and Server
+name: Deploy to Docker Hub and run Container on Server
 
 env:
   APP_NAME: nasa-app
@@ -45,10 +46,10 @@ jobs:
         run: docker build -t ${{ env.APP_NAME }} -f microservices/nasa/dockerfile .
       - name: Tag image
         run: docker tag ${{ env.APP_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
-      - name: Push image
+      - name: Push image${{ env.APP_NAME }}
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REGISTRY }}:${{ env.RELEASE_VERSION }}
 
-  login-pull-deploy:
+  server-pull-deploy:
     needs: [get_tag, build-push]
     runs-on: ubuntu-latest
 

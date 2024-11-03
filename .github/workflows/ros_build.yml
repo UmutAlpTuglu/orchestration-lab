@@ -1,0 +1,42 @@
+name: ROS2 Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ws/src/pointcloud_detection/**'
+      - 'ws/pointcloud.Dockerfile'
+      - '.github/workflows/docker-build.yml'
+
+env:
+  IMAGE_NAME: pointcloud_detection
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image
+        run: |
+          cd ws
+          docker build -t ${{ env.IMAGE_NAME }} -f pointcloud.Dockerfile .
+
+      - name: Tag image
+        run: |
+          docker tag ${{ env.IMAGE_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Push image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
