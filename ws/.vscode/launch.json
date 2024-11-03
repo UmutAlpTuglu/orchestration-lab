@@ -16,7 +16,7 @@
             "name": "ROS: Launch File",
             "type": "ros",
             "request": "launch",
-            "target": "${workspaceFolder}/src/object_detection/launch/object_detection.launch.py"
+            "target": "${workspaceFolder}/src/pointcloud_detection/launch/pointcloud_detection.launch.py"
         },
         {
             "name": "ROS: Attach to Node",
