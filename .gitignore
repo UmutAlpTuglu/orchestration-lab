@@ -170,6 +170,8 @@ microservices/websocket/
 ws/build/
 ws/install/
 ws/log/
+ws/src/pointcloud-detection-helm/
+ws/src/ros_pub_sub.yaml
 
 # Python related
 **/*.py[cod]
