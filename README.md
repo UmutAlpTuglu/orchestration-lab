@@ -17,9 +17,9 @@ If not available already, install the following:
 - just testing customization in Kubernetes, because big fan of customizing in Linux (Check out [nix-dotfiles](https://github.com/UmutAlpTuglu/nix-dotfiles)), by changing a crucial part of the k3s architecture. K2s uses Flannel CNI which runs faster than Calico, which is normally run in k8s archietctures. In [custom CNI folder](custom/CNI) I just remove the old CNI and add a new one in a minimal way.
 - app structure and pipelines are described below.
 
-## App Structure
+## Microservices Structure
 
-So far there are two apps with two pipelines developed in this repo. The [py.dockerfile](py.dockerfile) can be used via `Dev Containers` Extensions in `vscode` and is for the microservices folder, where you can find exemplaraly a nasa application. All new python dependencies (libs) can be added via [requirements.txt](requirements.txt). 
+The idea is to develop python apps inside microservices folder. The [py.dockerfile](py.dockerfile) can be used via `Dev Containers` Extensions in `vscode`, where you can find exemplary a nasa application. All new python dependencies (libs) can be added via [requirements.txt](requirements.txt). 
 
 ### Nasa App
 
@@ -39,8 +39,3 @@ This is how to trigger it from your host:
 git tag v1.0.1
 git push origin v1.0.1
 ```
-
-### Pointcloud ROS app
-
-Inside `ws` there is an entire python ros 2 development environment via docker and debug environment, open the ws folder with vscode and then trigger the `Dev Containers` folder. 
-In the [ros package folder](ws/src/pointcloud_detection) you can find the entire package setup and how to test the code can be found as comments at the top of this [file](ws/src/pointcloud_detection/pointcloud_detection/pointcloud_detection.py). You can test the application in the docker development environment with three terminals, or you can build the [pointcloud.Dockerfile image](ws/pointcloud.Dockerfile) locally and run it or you can use the [CI ros build pipeline](.github/workflows/ros_build.yml), which just builds the package and pushes it to a public docker hub image registry. Its triggered when one of the dependent files is changed and there is a push to the main branch. 
