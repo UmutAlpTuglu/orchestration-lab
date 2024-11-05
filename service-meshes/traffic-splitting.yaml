@@ -1,0 +1,62 @@
+# v2-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echoserver-v2
+spec:
+  selector:
+    matchLabels:
+      app: echoserver
+      version: v2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echoserver
+        version: v2
+    spec:
+      containers:
+      - name: echo-server
+        image: hashicorp/http-echo
+        args:
+          - "-text=Hello from echo server V2!"
+        ports:
+          - containerPort: 5678
+
+---
+# virtual-service-split.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: echo-route
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - echo-gateway
+  http:
+  - route:
+    - destination:
+        host: echoserver
+        subset: v1
+      weight: 80
+    - destination:
+        host: echoserver
+        subset: v2
+      weight: 20
+
+---
+# destination-rule.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: echoserver
+spec:
+  host: echoserver
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2

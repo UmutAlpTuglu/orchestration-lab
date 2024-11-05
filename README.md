@@ -15,6 +15,7 @@ If not available already, install the following:
 - [pod-expose](pod-expose) tests all the ways to expose your cluster to the outside in k3d, except load balancing and ingress rules which are done in [load-balancing in k3d](load-balancing)
 - [load-balancing in k3d](load-balancing) just tests how Traefik works in k3d and how you can use it to host a minimal web setup to allow traffic inside your cluster.
 - just testing customization in Kubernetes, because big fan of customizing in Linux (Check out [nix-dotfiles](https://github.com/UmutAlpTuglu/nix-dotfiles)), by changing a crucial part of the k3s architecture. K2s uses Flannel CNI which runs faster than Calico, which is normally run in k8s archietctures. In [custom CNI folder](custom/CNI) I just remove the old CNI and add a new one in a minimal way.
+- [service-meshes in k3d](service-meshes)
 - app structure and pipelines are described below.
 
 ## Microservices Structure
